@@ -105,6 +105,7 @@ export type Database = {
           description: string | null
           entry_date: string
           id: string
+          notes: string | null
           office_id: string | null
           reason: string | null
           type: string
@@ -115,6 +116,7 @@ export type Database = {
           description?: string | null
           entry_date?: string
           id?: string
+          notes?: string | null
           office_id?: string | null
           reason?: string | null
           type: string
@@ -125,6 +127,7 @@ export type Database = {
           description?: string | null
           entry_date?: string
           id?: string
+          notes?: string | null
           office_id?: string | null
           reason?: string | null
           type?: string
@@ -532,6 +535,7 @@ export type Database = {
           description: string | null
           expense_date: string
           id: string
+          notes: string | null
           office_id: string
         }
         Insert: {
@@ -542,6 +546,7 @@ export type Database = {
           description?: string | null
           expense_date?: string
           id?: string
+          notes?: string | null
           office_id: string
         }
         Update: {
@@ -552,6 +557,7 @@ export type Database = {
           description?: string | null
           expense_date?: string
           id?: string
+          notes?: string | null
           office_id?: string
         }
         Relationships: [
