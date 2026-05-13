@@ -511,6 +511,7 @@ export type Database = {
       office_daily_expenses: {
         Row: {
           amount: number
+          category: string | null
           created_at: string
           description: string | null
           expense_date: string
@@ -519,6 +520,7 @@ export type Database = {
         }
         Insert: {
           amount?: number
+          category?: string | null
           created_at?: string
           description?: string | null
           expense_date?: string
@@ -527,6 +529,7 @@ export type Database = {
         }
         Update: {
           amount?: number
+          category?: string | null
           created_at?: string
           description?: string | null
           expense_date?: string
@@ -551,6 +554,7 @@ export type Database = {
           notes: string | null
           office_id: string
           payment_date: string
+          type: string | null
         }
         Insert: {
           amount?: number
@@ -559,6 +563,7 @@ export type Database = {
           notes?: string | null
           office_id: string
           payment_date?: string
+          type?: string | null
         }
         Update: {
           amount?: number
@@ -567,6 +572,7 @@ export type Database = {
           notes?: string | null
           office_id?: string
           payment_date?: string
+          type?: string | null
         }
         Relationships: [
           {
@@ -581,6 +587,7 @@ export type Database = {
       offices: {
         Row: {
           address: string | null
+          can_add_orders: boolean | null
           created_at: string
           id: string
           lock_status_updates: boolean | null
@@ -596,6 +603,7 @@ export type Database = {
         }
         Insert: {
           address?: string | null
+          can_add_orders?: boolean | null
           created_at?: string
           id?: string
           lock_status_updates?: boolean | null
@@ -611,6 +619,7 @@ export type Database = {
         }
         Update: {
           address?: string | null
+          can_add_orders?: boolean | null
           created_at?: string
           id?: string
           lock_status_updates?: boolean | null
@@ -847,6 +856,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          address: string | null
           can_add_orders: boolean | null
           commission_amount: number | null
           coverage_areas: string | null
@@ -854,6 +864,7 @@ export type Database = {
           email: string | null
           full_name: string
           id: string
+          notes: string | null
           office_id: string | null
           phone: string | null
           salary: number | null
@@ -861,6 +872,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          address?: string | null
           can_add_orders?: boolean | null
           commission_amount?: number | null
           coverage_areas?: string | null
@@ -868,6 +880,7 @@ export type Database = {
           email?: string | null
           full_name?: string
           id?: string
+          notes?: string | null
           office_id?: string | null
           phone?: string | null
           salary?: number | null
@@ -875,6 +888,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          address?: string | null
           can_add_orders?: boolean | null
           commission_amount?: number | null
           coverage_areas?: string | null
@@ -882,6 +896,7 @@ export type Database = {
           email?: string | null
           full_name?: string
           id?: string
+          notes?: string | null
           office_id?: string | null
           phone?: string | null
           salary?: number | null
