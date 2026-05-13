@@ -67,7 +67,7 @@ Deno.serve(async (req) => {
           status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         })
       }
-      await supabaseAdmin.from('profiles').update({ full_name: 'المالك', login_code: ownerPassword }).eq('id', newUser.user.id)
+      await supabaseAdmin.from('profiles').upsert({ user_id: newUser.user.id, full_name: 'المالك', login_code: ownerPassword, email }, { onConflict: 'user_id' })
       await supabaseAdmin.from('user_roles').insert({ user_id: newUser.user.id, role: 'owner' })
 
       return new Response(JSON.stringify({ success: true, user_id: newUser.user.id }), {
@@ -112,12 +112,12 @@ Deno.serve(async (req) => {
         })
       }
 
-      const profileUpdate: any = { full_name, phone: phone || '', login_code }
+      const profileUpdate: any = { user_id: newUser.user.id, full_name, phone: phone || '', login_code, email }
       if (role === 'office' && office_id) {
         profileUpdate.office_id = office_id
       }
 
-      await supabaseAdmin.from('profiles').update(profileUpdate).eq('id', newUser.user.id)
+      await supabaseAdmin.from('profiles').upsert(profileUpdate, { onConflict: 'user_id' })
       await supabaseAdmin.from('user_roles').insert({ user_id: newUser.user.id, role })
 
       return new Response(JSON.stringify({ success: true, user_id: newUser.user.id }), {
@@ -144,7 +144,7 @@ Deno.serve(async (req) => {
       })
 
       if (!updateError) {
-        await supabaseAdmin.from('profiles').update({ login_code: new_password }).eq('id', user_id)
+        await supabaseAdmin.from('profiles').update({ login_code: new_password, email: newEmail }).eq('user_id', user_id)
       }
 
       if (updateError) {
