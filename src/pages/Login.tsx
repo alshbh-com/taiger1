@@ -85,6 +85,27 @@ export default function Login() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Made-by badge */}
+      <a
+        href="https://wa.me/201061067966"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 group"
+      >
+        <div className="relative">
+          <div className="absolute inset-0 rounded-full gradient-neon blur-md opacity-60 group-hover:opacity-100 transition-opacity" />
+          <div className="relative flex items-center gap-2 px-4 py-2 rounded-full bg-card/80 backdrop-blur border border-primary/50 shadow-glow">
+            <span className="h-2 w-2 rounded-full bg-accent animate-neon-pulse" />
+            <span className="text-xs font-semibold neon-text font-display tracking-wider">
+              صُنع من شركة دوبامين (الشبح سابقاً)
+            </span>
+            <span className="text-[10px] text-secondary neon-text-magenta">
+              · واتساب 01061067966
+            </span>
+          </div>
+        </div>
+      </a>
     </div>
   );
 }
