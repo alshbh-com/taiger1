@@ -46,24 +46,33 @@ export type Database = {
           advance_date: string
           amount: number
           created_at: string
+          created_by: string | null
           id: string
           notes: string | null
+          reason: string | null
+          type: string | null
           user_id: string
         }
         Insert: {
           advance_date?: string
           amount?: number
           created_at?: string
+          created_by?: string | null
           id?: string
           notes?: string | null
+          reason?: string | null
+          type?: string | null
           user_id: string
         }
         Update: {
           advance_date?: string
           amount?: number
           created_at?: string
+          created_by?: string | null
           id?: string
           notes?: string | null
+          reason?: string | null
+          type?: string | null
           user_id?: string
         }
         Relationships: []
@@ -97,6 +106,7 @@ export type Database = {
           entry_date: string
           id: string
           office_id: string | null
+          reason: string | null
           type: string
         }
         Insert: {
@@ -106,6 +116,7 @@ export type Database = {
           entry_date?: string
           id?: string
           office_id?: string | null
+          reason?: string | null
           type: string
         }
         Update: {
@@ -115,6 +126,7 @@ export type Database = {
           entry_date?: string
           id?: string
           office_id?: string | null
+          reason?: string | null
           type?: string
         }
         Relationships: [
@@ -197,6 +209,7 @@ export type Database = {
           amount: number
           courier_id: string
           created_at: string
+          created_by: string | null
           id: string
           reason: string | null
         }
@@ -204,6 +217,7 @@ export type Database = {
           amount?: number
           courier_id: string
           created_at?: string
+          created_by?: string | null
           id?: string
           reason?: string | null
         }
@@ -211,6 +225,7 @@ export type Database = {
           amount?: number
           courier_id?: string
           created_at?: string
+          created_by?: string | null
           id?: string
           reason?: string | null
         }
@@ -513,6 +528,7 @@ export type Database = {
           amount: number
           category: string | null
           created_at: string
+          created_by: string | null
           description: string | null
           expense_date: string
           id: string
@@ -522,6 +538,7 @@ export type Database = {
           amount?: number
           category?: string | null
           created_at?: string
+          created_by?: string | null
           description?: string | null
           expense_date?: string
           id?: string
@@ -531,6 +548,7 @@ export type Database = {
           amount?: number
           category?: string | null
           created_at?: string
+          created_by?: string | null
           description?: string | null
           expense_date?: string
           id?: string
