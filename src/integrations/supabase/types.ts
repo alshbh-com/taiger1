@@ -888,6 +888,7 @@ export type Database = {
           email: string | null
           full_name: string
           id: string
+          login_code: string | null
           notes: string | null
           office_id: string | null
           phone: string | null
@@ -904,6 +905,7 @@ export type Database = {
           email?: string | null
           full_name?: string
           id?: string
+          login_code?: string | null
           notes?: string | null
           office_id?: string | null
           phone?: string | null
@@ -920,6 +922,7 @@ export type Database = {
           email?: string | null
           full_name?: string
           id?: string
+          login_code?: string | null
           notes?: string | null
           office_id?: string | null
           phone?: string | null
