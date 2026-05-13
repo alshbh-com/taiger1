@@ -84,11 +84,15 @@ export function AppSidebar() {
   return (
     <Sidebar side="right" collapsible="icon">
       <SidebarHeader className="p-4">
-        <div className="flex items-center gap-2 group-data-[collapsible=icon]:justify-center">
-          <img src={logo} alt="تايجر" className="h-9 w-9 shrink-0 rounded-xl object-cover" />
-          <span className="text-lg font-extrabold text-sidebar-foreground group-data-[collapsible=icon]:hidden tracking-wide">
-            تايجر
-          </span>
+        <div className="flex items-center gap-3 group-data-[collapsible=icon]:justify-center">
+          <div className="relative shrink-0">
+            <div className="absolute inset-0 rounded-lg gradient-neon blur-md opacity-70 animate-neon-pulse" />
+            <img src={logo} alt="تايجر" className="relative h-10 w-10 rounded-lg object-cover ring-1 ring-primary/60" />
+          </div>
+          <div className="group-data-[collapsible=icon]:hidden">
+            <div className="font-display text-xl font-black neon-text leading-none">TIGER</div>
+            <div className="text-[10px] tracking-[0.3em] text-secondary mt-1 neon-text-magenta">// تايجر</div>
+          </div>
         </div>
       </SidebarHeader>
       <SidebarSeparator />
