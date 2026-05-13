@@ -86,21 +86,21 @@ export default function Login() {
         </CardContent>
       </Card>
 
-      {/* Made-by badge */}
+      {/* Made-by bar — full width */}
       <a
         href="https://wa.me/201061067966"
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 group"
+        className="absolute bottom-0 left-0 right-0 z-20 group"
       >
         <div className="relative">
-          <div className="absolute inset-0 rounded-full gradient-neon blur-md opacity-60 group-hover:opacity-100 transition-opacity" />
-          <div className="relative flex items-center gap-2 px-4 py-2 rounded-full bg-card/80 backdrop-blur border border-primary/50 shadow-glow">
-            <span className="h-2 w-2 rounded-full bg-accent animate-neon-pulse" />
-            <span className="text-xs font-semibold neon-text font-display tracking-wider">
+          <div className="absolute inset-0 gradient-neon opacity-30 group-hover:opacity-60 transition-opacity blur-sm" />
+          <div className="relative flex items-center justify-center gap-3 px-4 py-3 bg-card/90 backdrop-blur border-t border-primary/50 shadow-glow flex-wrap">
+            <span className="h-2 w-2 rounded-full bg-accent animate-neon-pulse shrink-0" />
+            <span className="text-xs sm:text-sm font-semibold neon-text font-display tracking-wider">
               صُنع من شركة دوبامين (الشبح سابقاً)
             </span>
-            <span className="text-[10px] text-secondary neon-text-magenta">
+            <span className="text-[10px] sm:text-xs text-secondary neon-text-magenta">
               · واتساب 01061067966
             </span>
           </div>
