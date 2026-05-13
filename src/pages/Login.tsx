@@ -27,44 +27,62 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4 relative overflow-hidden">
-      {/* Decorative blurs */}
-      <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-[120px]" />
-      <div className="absolute bottom-[-20%] left-[-10%] w-[400px] h-[400px] rounded-full bg-primary/5 blur-[100px]" />
-      
-      <Card className="w-full max-w-sm border-border bg-card/80 backdrop-blur-xl shadow-glow relative z-10">
-        <CardContent className="pt-8 pb-6 px-6">
-          {/* Logo */}
+    <div className="flex min-h-screen items-center justify-center p-4 relative overflow-hidden">
+      {/* Neon orbs */}
+      <div className="absolute -top-32 -right-20 w-[520px] h-[520px] rounded-full bg-primary/20 blur-[140px] animate-neon-pulse" />
+      <div className="absolute -bottom-32 -left-20 w-[460px] h-[460px] rounded-full bg-secondary/20 blur-[140px] animate-neon-pulse" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] rounded-full bg-accent/10 blur-[100px]" />
+
+      <Card className="w-full max-w-md relative z-10 glass-effect border-primary/40 shadow-glow overflow-hidden scanline">
+        {/* Top neon strip */}
+        <div className="h-1 w-full gradient-neon" />
+        <CardContent className="pt-10 pb-8 px-8">
           <div className="text-center mb-8">
-            <img src={logo} alt="تايجر" className="mx-auto h-24 w-24 rounded-2xl shadow-glow mb-4 object-cover" />
-            <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
-              تايجر
-            </h1>
-            <p className="text-sm text-muted-foreground mt-1">نظام إدارة الشحن</p>
+            <div className="relative mx-auto w-28 h-28 mb-5">
+              <div className="absolute inset-0 rounded-2xl gradient-neon blur-xl opacity-80 animate-neon-pulse" />
+              <img src={logo} alt="تايجر" className="relative h-28 w-28 rounded-2xl object-cover ring-2 ring-primary/70" />
+            </div>
+            <h1 className="font-display text-4xl font-black neon-text animate-flicker">TIGER</h1>
+            <div className="mt-2 flex items-center justify-center gap-2">
+              <span className="h-px w-8 bg-secondary/60" />
+              <p className="text-xs tracking-[0.4em] neon-text-magenta uppercase">نظام الشحن</p>
+              <span className="h-px w-8 bg-secondary/60" />
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="relative">
-              <Lock className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <div className="relative group">
+              <Lock className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-primary" />
               <Input
                 type="password"
-                placeholder="أدخل كلمة المرور"
+                placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-12 pr-10 text-base bg-secondary/50 border-border focus:border-primary focus:ring-primary/30"
+                className="h-12 pr-10 text-base bg-input/70 border-primary/40 focus:border-primary focus:ring-2 focus:ring-primary/40 placeholder:text-muted-foreground/50 font-mono tracking-widest"
                 dir="ltr"
                 autoFocus
               />
+              <div className="pointer-events-none absolute inset-0 rounded-md ring-1 ring-primary/0 group-focus-within:ring-primary/60 transition-all" />
             </div>
-            
+
             {error && (
-              <p className="text-sm text-destructive text-center bg-destructive/10 py-2 rounded-lg">{error}</p>
+              <p className="text-sm text-destructive text-center bg-destructive/10 border border-destructive/40 py-2 rounded-md">
+                {error}
+              </p>
             )}
-            
-            <Button type="submit" className="w-full h-12 text-base font-semibold gradient-primary hover:opacity-90 transition-opacity border-0" disabled={loading}>
-              {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'تسجيل الدخول'}
+
+            <Button
+              type="submit"
+              className="w-full h-12 text-base font-bold gradient-neon text-background hover:opacity-90 border-0 shadow-glow tracking-widest font-display"
+              disabled={loading}
+            >
+              {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'ENTER'}
             </Button>
           </form>
+
+          <div className="mt-6 text-center text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
+            // secured channel · v2.0
+          </div>
         </CardContent>
       </Card>
     </div>
