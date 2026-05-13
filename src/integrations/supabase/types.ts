@@ -96,6 +96,7 @@ export type Database = {
           description: string | null
           entry_date: string
           id: string
+          office_id: string | null
           type: string
         }
         Insert: {
@@ -104,6 +105,7 @@ export type Database = {
           description?: string | null
           entry_date?: string
           id?: string
+          office_id?: string | null
           type: string
         }
         Update: {
@@ -112,12 +114,22 @@ export type Database = {
           description?: string | null
           entry_date?: string
           id?: string
+          office_id?: string | null
           type?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "cash_flow_entries_office_id_fkey"
+            columns: ["office_id"]
+            isOneToOne: false
+            referencedRelation: "offices"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       companies: {
         Row: {
+          agreement_price: number | null
           contact_name: string | null
           created_at: string
           id: string
@@ -126,6 +138,7 @@ export type Database = {
           phone: string | null
         }
         Insert: {
+          agreement_price?: number | null
           contact_name?: string | null
           created_at?: string
           id?: string
@@ -134,6 +147,7 @@ export type Database = {
           phone?: string | null
         }
         Update: {
+          agreement_price?: number | null
           contact_name?: string | null
           created_at?: string
           id?: string
@@ -210,6 +224,7 @@ export type Database = {
           created_at: string
           id: string
           notes: string | null
+          order_id: string | null
         }
         Insert: {
           amount?: number
@@ -218,6 +233,7 @@ export type Database = {
           created_at?: string
           id?: string
           notes?: string | null
+          order_id?: string | null
         }
         Update: {
           amount?: number
@@ -226,8 +242,17 @@ export type Database = {
           created_at?: string
           id?: string
           notes?: string | null
+          order_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "courier_collections_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       courier_locations: {
         Row: {
@@ -292,26 +317,38 @@ export type Database = {
         Row: {
           created_at: string
           diary_date: string
+          diary_number: number
           id: string
           is_archived: boolean
+          is_closed: boolean | null
+          lock_status_updates: boolean | null
           notes: string | null
           office_id: string
+          prevent_new_orders: boolean | null
         }
         Insert: {
           created_at?: string
           diary_date: string
+          diary_number?: number
           id?: string
           is_archived?: boolean
+          is_closed?: boolean | null
+          lock_status_updates?: boolean | null
           notes?: string | null
           office_id: string
+          prevent_new_orders?: boolean | null
         }
         Update: {
           created_at?: string
           diary_date?: string
+          diary_number?: number
           id?: string
           is_archived?: boolean
+          is_closed?: boolean | null
+          lock_status_updates?: boolean | null
           notes?: string | null
           office_id?: string
+          prevent_new_orders?: boolean | null
         }
         Relationships: [
           {
@@ -374,6 +411,7 @@ export type Database = {
           expense_name: string
           id: string
           notes: string | null
+          office_id: string | null
         }
         Insert: {
           amount?: number
@@ -383,6 +421,7 @@ export type Database = {
           expense_name: string
           id?: string
           notes?: string | null
+          office_id?: string | null
         }
         Update: {
           amount?: number
@@ -392,8 +431,17 @@ export type Database = {
           expense_name?: string
           id?: string
           notes?: string | null
+          office_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "expenses_office_id_fkey"
+            columns: ["office_id"]
+            isOneToOne: false
+            referencedRelation: "offices"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       messages: {
         Row: {
@@ -537,10 +585,13 @@ export type Database = {
           id: string
           lock_status_updates: boolean | null
           name: string
+          notes: string | null
           office_commission: number | null
           owner_name: string | null
+          owner_phone: string | null
           phone: string | null
           prevent_new_orders: boolean | null
+          specialty: string | null
           updated_at: string
         }
         Insert: {
@@ -549,10 +600,13 @@ export type Database = {
           id?: string
           lock_status_updates?: boolean | null
           name: string
+          notes?: string | null
           office_commission?: number | null
           owner_name?: string | null
+          owner_phone?: string | null
           phone?: string | null
           prevent_new_orders?: boolean | null
+          specialty?: string | null
           updated_at?: string
         }
         Update: {
@@ -561,10 +615,13 @@ export type Database = {
           id?: string
           lock_status_updates?: boolean | null
           name?: string
+          notes?: string | null
           office_commission?: number | null
           owner_name?: string | null
+          owner_phone?: string | null
           phone?: string | null
           prevent_new_orders?: boolean | null
+          specialty?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -631,6 +688,7 @@ export type Database = {
           barcode: string | null
           closed_at: string | null
           color: string | null
+          company_id: string | null
           courier_id: string | null
           created_at: string
           customer_code: string | null
@@ -662,6 +720,7 @@ export type Database = {
           barcode?: string | null
           closed_at?: string | null
           color?: string | null
+          company_id?: string | null
           courier_id?: string | null
           created_at?: string
           customer_code?: string | null
@@ -693,6 +752,7 @@ export type Database = {
           barcode?: string | null
           closed_at?: string | null
           color?: string | null
+          company_id?: string | null
           courier_id?: string | null
           created_at?: string
           customer_code?: string | null
@@ -720,6 +780,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "orders_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "orders_office_id_fkey"
             columns: ["office_id"]
@@ -782,7 +849,7 @@ export type Database = {
         Row: {
           can_add_orders: boolean | null
           commission_amount: number | null
-          coverage_areas: string[] | null
+          coverage_areas: string | null
           created_at: string
           email: string | null
           full_name: string
@@ -796,7 +863,7 @@ export type Database = {
         Insert: {
           can_add_orders?: boolean | null
           commission_amount?: number | null
-          coverage_areas?: string[] | null
+          coverage_areas?: string | null
           created_at?: string
           email?: string | null
           full_name?: string
@@ -810,7 +877,7 @@ export type Database = {
         Update: {
           can_add_orders?: boolean | null
           commission_amount?: number | null
-          coverage_areas?: string[] | null
+          coverage_areas?: string | null
           created_at?: string
           email?: string | null
           full_name?: string
