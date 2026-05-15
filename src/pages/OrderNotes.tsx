@@ -19,7 +19,7 @@ export default function OrderNotes() {
   const loadData = async () => {
     const [notesRes, profilesRes, ordersRes] = await Promise.all([
       supabase.from('order_notes').select('*').order('created_at', { ascending: false }).limit(500),
-      supabase.from('profiles').select('id, full_name'),
+      supabase.from('profiles').select('id:user_id, full_name'),
       supabase.from('orders').select('id, barcode, customer_name, tracking_id, customer_code, offices(name)'),
     ]);
     setNotes(notesRes.data || []);

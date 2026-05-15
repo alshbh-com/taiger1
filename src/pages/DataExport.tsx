@@ -88,7 +88,7 @@ export default function DataExport() {
           const { data: roles } = await supabase.from('user_roles').select('user_id').eq('role', 'courier');
           const courierIds = (roles || []).map(r => r.user_id);
           const { data } = courierIds.length > 0
-            ? await supabase.from('profiles').select('*').in('id', courierIds)
+            ? await supabase.from('profiles').select('*, id:user_id').in('user_id', courierIds)
             : { data: [] };
           downloadCSV((data || []).map((c: any) => ({
             'الاسم': c.full_name, 'الهاتف': c.phone, 'العنوان': c.address,
@@ -110,7 +110,7 @@ export default function DataExport() {
           const { data } = await supabase.from('courier_collections').select('*, orders(barcode, customer_name, customer_code)');
           const { data: roles } = await supabase.from('user_roles').select('user_id').eq('role', 'courier');
           const courierIds = (roles || []).map(r => r.user_id);
-          const { data: profiles } = await supabase.from('profiles').select('id, full_name').in('id', courierIds);
+          const { data: profiles } = await supabase.from('profiles').select('id:user_id, full_name').in('user_id', courierIds);
           const profileMap: Record<string, string> = {};
           (profiles || []).forEach(p => { profileMap[p.id] = p.full_name; });
           downloadCSV((data || []).map((c: any) => ({
@@ -125,7 +125,7 @@ export default function DataExport() {
         }
         case 'advances': {
           const { data } = await supabase.from('advances').select('*');
-          const { data: profiles } = await supabase.from('profiles').select('id, full_name');
+          const { data: profiles } = await supabase.from('profiles').select('id:user_id, full_name');
           const profileMap: Record<string, string> = {};
           (profiles || []).forEach(p => { profileMap[p.id] = p.full_name; });
           downloadCSV((data || []).map((a: any) => ({

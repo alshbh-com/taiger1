@@ -24,7 +24,7 @@ export default function ClosedOrders() {
   useEffect(() => { loadOrders(); loadCouriers(); loadOffices(); }, []);
 
   const loadCouriers = async () => {
-    const { data } = await supabase.from('profiles').select('id, full_name');
+    const { data } = await supabase.from('profiles').select('id:user_id, full_name');
     if (data) {
       const map: Record<string, string> = {};
       data.forEach(p => { map[p.id] = p.full_name; });

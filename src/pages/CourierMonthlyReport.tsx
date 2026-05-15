@@ -57,7 +57,7 @@ export default function CourierMonthlyReport() {
     (async () => {
       const { data: roles } = await supabase.from('user_roles').select('user_id').eq('role', 'courier');
       if (roles?.length) {
-        const { data: ps } = await supabase.from('profiles').select('*').in('id', roles.map(r => r.user_id));
+        const { data: ps } = await supabase.from('profiles').select('*, id:user_id').in('user_id', roles.map(r => r.user_id));
         setCouriers(ps || []);
         const map: Record<string, any> = {};
         (ps || []).forEach((p: any) => { map[p.id] = p; });

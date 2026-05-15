@@ -88,7 +88,7 @@ export default function CourierFollowup() {
     const load = async () => {
       const { data: roles } = await supabase.from('user_roles').select('user_id').eq('role', 'courier');
       if (roles && roles.length > 0) {
-        const { data: profiles } = await supabase.from('profiles').select('id, full_name, phone').in('id', roles.map(r => r.user_id));
+        const { data: profiles } = await supabase.from('profiles').select('id:user_id, full_name, phone').in('user_id', roles.map(r => r.user_id));
         setCouriers((profiles || []) as Courier[]);
       }
       const { data: sts } = await supabase.from('order_statuses').select('*').order('sort_order');

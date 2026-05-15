@@ -68,7 +68,7 @@ export default function CourierTracking() {
 
     const courierIds = (rolesRes.data || []).map(r => r.user_id);
     if (courierIds.length > 0) {
-      const { data: profiles } = await supabase.from('profiles').select('id, full_name, phone, coverage_areas').in('id', courierIds);
+      const { data: profiles } = await supabase.from('profiles').select('id:user_id, full_name, phone, coverage_areas').in('user_id', courierIds);
       setCouriers(profiles || []);
     }
     setOrders(ordersRes.data || []);

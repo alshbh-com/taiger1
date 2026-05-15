@@ -33,7 +33,7 @@ export default function Couriers() {
   const loadCouriers = async () => {
     const { data: roles } = await supabase.from('user_roles').select('user_id').eq('role', 'courier');
     if (roles && roles.length > 0) {
-      const { data: profiles } = await supabase.from('profiles').select('*').in('id', roles.map(r => r.user_id));
+      const { data: profiles } = await supabase.from('profiles').select('*, id:user_id').in('user_id', roles.map(r => r.user_id));
       setCouriers(profiles || []);
     }
   };
@@ -89,7 +89,7 @@ export default function Couriers() {
   };
   const saveEditCourier = async () => {
     if (!editDialog) return;
-    await supabase.from('profiles').update(editForm).eq('id', editDialog.id);
+    await supabase.from('profiles').update(editForm).eq('user_id', editDialog.id);
     logActivity('تعديل بيانات مندوب', { courier_id: editDialog.id, name: editForm.full_name });
     toast.success('تم التعديل');
     setEditDialog(null);
