@@ -39,10 +39,10 @@ export default function Orders() {
     setOffices(o.data || []);
     setStatuses(s.data || []);
     if (r.data && r.data.length > 0) {
-      const { data: profiles } = await supabase.from('profiles').select('id, full_name').in('id', r.data.map(x => x.user_id));
+      const { data: profiles } = await supabase.from('profiles').select('user_id, full_name').in('user_id', r.data.map(x => x.user_id));
       setCouriers(profiles || []);
       const map: Record<string, string> = {};
-      (profiles || []).forEach(p => { map[p.id] = p.full_name; });
+      (profiles || []).forEach(p => { map[p.user_id] = p.full_name; });
       setCourierMap(map);
     }
   };
@@ -159,7 +159,7 @@ export default function Orders() {
           <span className="text-sm font-medium">تم تحديد {selected.size}</span>
           <Select value={assignCourier} onValueChange={setAssignCourier}>
             <SelectTrigger className="w-36 bg-card border-border"><SelectValue placeholder="اختر مندوب" /></SelectTrigger>
-            <SelectContent>{couriers.map(c => <SelectItem key={c.id} value={c.id}>{c.full_name}</SelectItem>)}</SelectContent>
+            <SelectContent>{couriers.map(c => <SelectItem key={c.user_id} value={c.user_id}>{c.full_name}</SelectItem>)}</SelectContent>
           </Select>
           <Button size="sm" onClick={assignToCourier} disabled={!assignCourier}><UserPlus className="h-4 w-4 ml-1" />تعيين</Button>
           <Button size="sm" variant="outline" onClick={unassignCourier}><UserMinus className="h-4 w-4 ml-1" />إلغاء التعيين</Button>
