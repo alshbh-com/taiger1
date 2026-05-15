@@ -55,10 +55,10 @@ export default function UsersPage() {
     const { data: roles } = await supabase.from('user_roles').select('user_id, role');
     if (roles && roles.length > 0) {
       const userIds = [...new Set(roles.map(r => r.user_id))];
-      const { data: profiles } = await supabase.from('profiles').select('*').in('id', userIds);
+      const { data: profiles } = await supabase.from('profiles').select('*').in('user_id', userIds);
       const merged = (profiles || []).map(p => ({
         ...p,
-        role: roles.find(r => r.user_id === p.id)?.role || 'unknown',
+        role: roles.find(r => r.user_id === p.user_id)?.role || 'unknown',
         officeName: p.office_id ? undefined : undefined, // will be filled below
       }));
       // Fill office names
@@ -107,7 +107,7 @@ export default function UsersPage() {
       });
       // Save commission for couriers (uses profiles.commission_amount)
       if (newRole === 'courier' && newCommission && result?.user?.id) {
-        await supabase.from('profiles').update({ commission_amount: Number(newCommission) }).eq('id', result.user.id);
+        await supabase.from('profiles').update({ commission_amount: Number(newCommission) }).eq('user_id', result.user.id);
       }
       toast.success('تم إنشاء المستخدم بنجاح');
       setCreateOpen(false);
@@ -122,7 +122,7 @@ export default function UsersPage() {
   const saveCommission = async (userId: string) => {
     const v = commissionEdit[userId];
     if (v === undefined) return;
-    const { error } = await supabase.from('profiles').update({ commission_amount: Number(v) || 0 }).eq('id', userId);
+    const { error } = await supabase.from('profiles').update({ commission_amount: Number(v) || 0 }).eq('user_id', userId);
     if (error) { toast.error('فشل الحفظ'); return; }
     toast.success('تم حفظ العمولة');
     setCommissionEdit(prev => { const n = { ...prev }; delete n[userId]; return n; });
