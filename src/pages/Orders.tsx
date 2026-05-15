@@ -39,10 +39,10 @@ export default function Orders() {
     setOffices(o.data || []);
     setStatuses(s.data || []);
     if (r.data && r.data.length > 0) {
-      const { data: profiles } = await supabase.from('profiles').select('id, full_name').in('id', r.data.map(x => x.user_id));
+      const { data: profiles } = await supabase.from('profiles').select('user_id, full_name').in('user_id', r.data.map(x => x.user_id));
       setCouriers(profiles || []);
       const map: Record<string, string> = {};
-      (profiles || []).forEach(p => { map[p.id] = p.full_name; });
+      (profiles || []).forEach(p => { map[p.user_id] = p.full_name; });
       setCourierMap(map);
     }
   };
