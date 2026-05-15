@@ -133,7 +133,7 @@ export default function UsersPage() {
     if (!pwDialog || !newPw.trim()) return;
     setUpdatingPw(true);
     try {
-      await callEdgeFunction('update-password', { user_id: pwDialog.id, new_password: newPw });
+      await callEdgeFunction('update-password', { user_id: pwDialog.user_id, new_password: newPw });
       toast.success('تم تحديث كلمة المرور بنجاح');
       setPwDialog(null); setNewPw('');
       loadUsers();
@@ -146,7 +146,7 @@ export default function UsersPage() {
   const deleteUser = async (u: any) => {
     if (!confirm(`هل تريد حذف المستخدم "${u.full_name}"؟`)) return;
     try {
-      await callEdgeFunction('delete-user', { user_id: u.id });
+      await callEdgeFunction('delete-user', { user_id: u.user_id });
       toast.success('تم حذف المستخدم');
       loadUsers();
     } catch (err: any) {
@@ -160,7 +160,7 @@ export default function UsersPage() {
     const { data } = await supabase
       .from('user_permissions')
       .select('section, permission')
-      .eq('user_id', u.id);
+      .eq('user_id', u.user_id);
     const perms: Record<string, PermissionLevel> = {};
     ALL_SECTIONS.forEach(s => { perms[s.key] = 'edit'; }); // default edit
     (data || []).forEach((p: any) => { perms[p.section] = p.permission; });
@@ -172,13 +172,13 @@ export default function UsersPage() {
     setSavingPerms(true);
     try {
       // Delete existing permissions
-      await supabase.from('user_permissions').delete().eq('user_id', permUser.id);
+      await supabase.from('user_permissions').delete().eq('user_id', permUser.user_id);
       
       // Insert only non-default (non-edit) permissions
       const toInsert = Object.entries(permData)
         .filter(([_, perm]) => perm !== 'edit')
         .map(([section, permission]) => ({
-          user_id: permUser.id,
+          user_id: permUser.user_id,
           section,
           permission,
         }));
@@ -303,7 +303,7 @@ export default function UsersPage() {
                 ) : users.length === 0 ? (
                   <TableRow><TableCell colSpan={isOwner && showPasswords ? 9 : 8} className="text-center text-muted-foreground py-8">لا يوجد مستخدمين</TableCell></TableRow>
                 ) : users.map(u => (
-                  <TableRow key={u.id} className="border-border">
+                  <TableRow key={u.user_id} className="border-border">
                     <TableCell className="font-medium">{u.full_name}</TableCell>
                     <TableCell dir="ltr">{u.phone || '-'}</TableCell>
                     {isOwner && showPasswords && (
@@ -320,9 +320,9 @@ export default function UsersPage() {
                         <div className="flex gap-1 items-center">
                           <Input
                             type="number"
-                            value={commissionEdit[u.id] !== undefined ? commissionEdit[u.id] : (u.commission_amount ?? 0)}
-                            onChange={e => setCommissionEdit(prev => ({ ...prev, [u.id]: e.target.value }))}
-                            onBlur={() => commissionEdit[u.id] !== undefined && saveCommission(u.id)}
+                            value={commissionEdit[u.user_id] !== undefined ? commissionEdit[u.user_id] : (u.commission_amount ?? 0)}
+                            onChange={e => setCommissionEdit(prev => ({ ...prev, [u.user_id]: e.target.value }))}
+                            onBlur={() => commissionEdit[u.user_id] !== undefined && saveCommission(u.user_id)}
                             className="h-7 w-20 bg-secondary border-border text-xs"
                           />
                           <span className="text-xs text-muted-foreground">ج.م</span>
