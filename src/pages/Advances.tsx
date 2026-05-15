@@ -35,8 +35,8 @@ export default function Advances() {
       if (allowedIds.length > 0) {
         const { data: profiles } = await supabase
           .from('profiles')
-          .select('id, full_name, salary')
-          .in('id', allowedIds);
+          .select('id:user_id, full_name, salary')
+          .in('user_id', allowedIds);
         setEmployees(profiles || []);
       } else {
         setEmployees([]);
@@ -89,7 +89,7 @@ export default function Advances() {
   const saveSalary = async () => {
     if (!selectedEmployee) return;
     setSavingSalary(true);
-    const { error } = await supabase.from('profiles').update({ salary: parseFloat(salary) || 0 }).eq('id', selectedEmployee);
+    const { error } = await supabase.from('profiles').update({ salary: parseFloat(salary) || 0 }).eq('user_id', selectedEmployee);
     if (error) { toast.error(error.message); }
     else {
       toast.success('تم حفظ الراتب');
