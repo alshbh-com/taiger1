@@ -24,7 +24,7 @@ export default function GlobalSearch() {
 
   useEffect(() => {
     supabase.from('order_statuses').select('*').order('sort_order').then(({ data }) => setStatuses(data || []));
-    supabase.from('profiles').select('id, full_name').then(({ data }) => {
+    supabase.from('profiles').select('id:user_id, full_name').then(({ data }) => {
       const map: Record<string, string> = {};
       (data || []).forEach((p: any) => { map[p.id] = p.full_name || '-'; });
       setCouriers(map);

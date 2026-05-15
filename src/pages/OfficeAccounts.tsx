@@ -52,10 +52,10 @@ export default function OfficeAccounts() {
     const loadCouriers = async () => {
       const { data: roles } = await supabase.from('user_roles').select('user_id').eq('role', 'courier');
       if (roles && roles.length > 0) {
-        const { data: profiles } = await supabase.from('profiles').select('id, full_name').in('id', roles.map(r => r.user_id));
+        const { data: profiles } = await supabase.from('profiles').select('id:user_id, full_name').in('user_id', roles.map(r => r.user_id));
         setCouriers(profiles || []);
       }
-      const { data: all } = await supabase.from('profiles').select('id, full_name');
+      const { data: all } = await supabase.from('profiles').select('id:user_id, full_name');
       const map: Record<string, string> = {};
       (all || []).forEach((p: any) => { map[p.id] = p.full_name || '—'; });
       setAllUsers(map);

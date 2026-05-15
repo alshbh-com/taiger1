@@ -11,7 +11,7 @@ export default function ActivityLogs() {
     const load = async () => {
       const [logsRes, profilesRes] = await Promise.all([
         supabase.from('activity_logs').select('*').order('created_at', { ascending: false }).limit(200),
-        supabase.from('profiles').select('id, full_name'),
+        supabase.from('profiles').select('id:user_id, full_name'),
       ]);
 
       if (logsRes.error) {

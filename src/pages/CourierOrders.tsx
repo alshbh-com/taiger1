@@ -90,7 +90,7 @@ export default function CourierOrders() {
     if (!roles) return;
     const ids = roles.map(r => r.user_id).filter(id => id !== user?.id);
     if (ids.length === 0) return;
-    const { data: profiles } = await supabase.from('profiles').select('id, full_name').in('id', ids);
+    const { data: profiles } = await supabase.from('profiles').select('id:user_id, full_name').in('user_id', ids);
     const { data: unread } = await supabase.from('messages' as any).select('sender_id').eq('receiver_id', user?.id || '').eq('is_read', false);
     const unreadMap: Record<string, number> = {};
     (unread || []).forEach((m: any) => { unreadMap[m.sender_id] = (unreadMap[m.sender_id] || 0) + 1; });

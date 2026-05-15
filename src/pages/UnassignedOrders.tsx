@@ -31,7 +31,7 @@ export default function UnassignedOrders() {
   const loadCouriers = async () => {
     const { data: roles } = await supabase.from('user_roles').select('user_id').eq('role', 'courier');
     if (roles && roles.length > 0) {
-      const { data: profiles } = await supabase.from('profiles').select('id, full_name').in('id', roles.map(r => r.user_id));
+      const { data: profiles } = await supabase.from('profiles').select('id:user_id, full_name').in('user_id', roles.map(r => r.user_id));
       setCouriers(profiles || []);
     }
   };

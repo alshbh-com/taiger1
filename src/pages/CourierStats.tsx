@@ -22,7 +22,7 @@ export default function CourierStats() {
 
     const courierIds = (rolesRes.data || []).map(r => r.user_id);
     if (courierIds.length > 0) {
-      const { data: profiles } = await supabase.from('profiles').select('id, full_name, phone').in('id', courierIds);
+      const { data: profiles } = await supabase.from('profiles').select('id:user_id, full_name, phone').in('user_id', courierIds);
       setCouriers(profiles || []);
     } else {
       setCouriers([]);

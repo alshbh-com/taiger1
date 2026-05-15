@@ -78,7 +78,7 @@ export default function InternalChat() {
     const userIds = [...new Set(roles.map(r => r.user_id))].filter(id => id !== user?.id);
     if (userIds.length === 0) return;
 
-    const { data: profiles } = await supabase.from('profiles').select('id, full_name, phone').in('id', userIds);
+    const { data: profiles } = await supabase.from('profiles').select('id:user_id, full_name, phone').in('user_id', userIds);
     if (!profiles) return;
 
     // Get unread counts
